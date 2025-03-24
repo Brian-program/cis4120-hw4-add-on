@@ -1,23 +1,44 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import WeatherDisplay from './components/WeatherDisplay';
+import ForecastTabs from './components/ForecastTabs';
+import TodayForecast from './components/TodayForecast';
+import FutureForecast from './components/FutureForecast';
+import SettingsPopup from './components/SettingsPopup';
 
 function App() {
+  const [activeTab, setActiveTab] = useState('today');
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  const togglePopup = () => {
+    setIsPopupVisible(!isPopupVisible);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="weather-container">
+      <div className="settings-icon" onClick={togglePopup}>⚙️</div>
+      
+      <WeatherDisplay 
+        icon="☀️" 
+        temperature="69°" 
+        feelsLike="72°" 
+        rainChance="01%" 
+      />
+      
+      <ForecastTabs 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab} 
+      />
+      
+      {activeTab === 'today' ? (
+        <TodayForecast />
+      ) : (
+        <FutureForecast />
+      )}
+      
+      {isPopupVisible && (
+        <SettingsPopup onClose={togglePopup} />
+      )}
     </div>
   );
 }

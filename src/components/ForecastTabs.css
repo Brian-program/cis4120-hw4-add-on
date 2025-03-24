@@ -1,0 +1,19 @@
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+  
+.button {
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: lightblue;
+}
+  
+.active {
+    background-color: gray;
+}
